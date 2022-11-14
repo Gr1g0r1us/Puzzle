@@ -5,24 +5,24 @@
 
 <div class="mainBlock">
     <h1>Регистрация</h1>
-    <div class="input-form">
+    <form class="input-form" [formGroup]="singupForm">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Логин</mat-label>
-            <input matInput type="login">
+            <input matInput formControlName="login" type="login">
         </mat-form-field>
         <br>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Пароль</mat-label>
-            <input matInput type="password">
+            <input matInput formControlName="password" type="password">
         </mat-form-field>
         <br>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Повторите пароль</mat-label>
-            <input matInput type="password">
+            <input matInput formControlName="repeatPassword" type="password">
         </mat-form-field>
-    </div>
+    </form>
     <div class="button-form">
-        <button mat-raised-button color="primary">Зарегистрироваться</button>
+        <button mat-raised-button color="primary" (click)="onSingup()">Зарегистрироваться</button>
         <br>
         <button mat-button color="primary" routerLink="/login">Уже есть аккаунт</button>
     </div>

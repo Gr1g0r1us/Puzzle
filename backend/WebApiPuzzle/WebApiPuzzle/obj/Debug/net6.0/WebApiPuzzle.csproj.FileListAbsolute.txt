@@ -52,3 +52,9 @@ D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebApiPuzzle\WebApiPuzzle\bin\Deb
 D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebApiPuzzle\WebApiPuzzle\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebApiPuzzle\WebApiPuzzle\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebApiPuzzle\WebApiPuzzle\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebAPIPuzzle\WebApiPuzzle\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebAPIPuzzle\WebApiPuzzle\bin\Debug\net6.0\Mono.TextTemplating.dll
+D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebAPIPuzzle\WebApiPuzzle\bin\Debug\net6.0\System.CodeDom.dll
+D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebAPIPuzzle\WebApiPuzzle\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebAPIPuzzle\WebApiPuzzle\bin\Debug\net6.0\System.Text.Json.dll
+D:\Study\Magistr\ZelenkoLS\proj\Puzzle\backend\WebAPIPuzzle\WebApiPuzzle\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

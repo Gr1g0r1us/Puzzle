@@ -5,19 +5,19 @@
 
 <div class="mainBlock">
     <h1>Войти</h1>
-    <div class="input-form">
+    <form class="input-form" [formGroup]="loginForm">
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Логин</mat-label>
-            <input matInput type="login">
+            <input matInput formControlName="login" type="login">
         </mat-form-field>
         <br>
         <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Пароль</mat-label>
-            <input matInput type="password">
+            <input matInput formControlName="password" type="password">
         </mat-form-field>
-    </div>
+    </form>
     <div class="button-form">
-        <button mat-raised-button color="primary">Войти</button>
+        <button mat-raised-button color="primary" type="submit" (click)="onLogin()">Войти</button>
         <br>
         <button mat-button color="primary" routerLink="/singup">Зарегистрироваться</button>
     </div>

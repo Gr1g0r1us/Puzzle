@@ -6,6 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedService {
-  readonly APIUrl="http://localhost:5085/api";
-  constructor() { }
+
+  readonly APIUrl: string="https://localhost:7271/api/User/";
+
+  constructor(private http: HttpClient) { 
+
+  }
+
+  singup(userObj:any){
+    return this.http.post<any>(`${this.APIUrl}register`,userObj);
+  }
+
+  login(loginObj:any){
+    return this.http.post<any>(`${this.APIUrl}authentificate`,loginObj);
+  }
 }
