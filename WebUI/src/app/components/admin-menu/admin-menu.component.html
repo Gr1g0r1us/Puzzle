@@ -1,0 +1,20 @@
+<div class="main-menu">
+    <div class="about">
+        <button mat-mini-fab color="primary" class="btn-about">?</button>
+        <button mat-mini-fab color="primary" class="btn-info">i</button>
+    </div>
+    <div class="mainBlock">
+        <h1>Добро пожаловать, администратор!</h1>
+        <div class="button-form">
+            <button mat-raised-button color="primary" type="submit" (click)="onCreate()">Создать пазл</button>
+            <p></p>
+            <button mat-raised-button color="primary" type="submit" (click)="onGetPuzzleList()">Список пазлов</button>
+            <p></p>
+            <button mat-raised-button color="primary" type="submit" (click)="onGetGalery()">Галерея картинок</button>
+            <p></p>
+            <button mat-raised-button color="primary" type="submit" (click)="onDifficulty()">Сложность</button>
+            <p></p>
+            <button mat-raised-button color="primary" type="submit" (click)="onExit()">Выйти</button>
+        </div>
+    </div>
+</div>

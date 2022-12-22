@@ -1,0 +1,30 @@
+<div class="about">
+    <button mat-mini-fab color="primary" class="btn-about">?</button>
+    <button mat-mini-fab color="primary" class="btn-info">i</button>
+</div>
+
+<div class="mainBlock">
+    <h1>Регистрация</h1>
+    <form class="input-form" [formGroup]="singupForm">
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Логин</mat-label>
+            <input matInput formControlName="login" type="login">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Пароль</mat-label>
+            <input matInput formControlName="password" type="password">
+        </mat-form-field>
+        <br>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Повторите пароль</mat-label>
+            <input matInput formControlName="repeatPassword" type="password">
+        </mat-form-field>
+    </form>
+    <div class="button-form">
+        <button mat-raised-button color="primary" (click)="onSingup()">Зарегистрироваться</button>
+        <br>
+        <button mat-button color="primary" routerLink="/login">Уже есть аккаунт</button>
+    </div>
+</div>
+
