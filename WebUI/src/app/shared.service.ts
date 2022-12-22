@@ -20,4 +20,8 @@ export class SharedService {
   login(loginObj:any){
     return this.http.post<any>(`${this.APIUrl}authentificate`,loginObj);
   }
+
+  checkLogin(userObj:any){
+    return this.http.post<any>(`${this.APIUrl}checkLogin`,userObj);
+  }
 }

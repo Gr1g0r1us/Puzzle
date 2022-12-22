@@ -1,0 +1,31 @@
+.main-menu{
+    background-color: #9D9D9D;
+}
+.mainBlock{
+    position:absolute;
+    top: 40%;
+    left: 40%;
+    background-color: white;
+}
+.mainBlock h1{
+    text-align: center;
+}
+.mainBlock .input-form{
+    margin: 15px 40px;
+    text-align: center;
+}
+
+.mainBlock .button-form{
+    margin: 15px 40px;
+    text-align: center;
+}
+.about{
+    left: 10px;;
+    right: 10px;
+}
+
+.about .btn-info{
+    position: absolute;
+    right: 0;
+}
+

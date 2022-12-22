@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SharedService } from 'src/app/shared.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { SharedService } from 'src/app/shared.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  constructor(private fb: FormBuilder, private auth: SharedService) { }
+  constructor(private fb: FormBuilder, private auth: SharedService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -21,18 +22,24 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     if(this.loginForm.valid){
-      console.log(this.loginForm.value);
-      
       this.auth.login(this.loginForm.value)
       .subscribe({
         next:(res)=>{
-          alert(res.message)
+          alert(res.Message);
+          this.loginForm.reset();
+          if(res.role){
+            this.router.navigate(['admin-menu']);
+          }
+          else{
+            this.router.navigate(['user-menu']);
+          }
         },
         error:(err)=>{
-          alert(err?.error.message)
+          console.log(err)
+          alert(err.error.Message)
         }
-        
       })
+      
     }
     else{
       

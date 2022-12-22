@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.Intrinsics.X86;
 using WebApiPuzzle.Models;
 
 namespace WebApiPuzzle.Controllers
@@ -15,6 +16,26 @@ namespace WebApiPuzzle.Controllers
 			_context = context;
 		}
 
+		[HttpPost("checkLogin")]
+		public async Task<IActionResult> CheckLogin([FromBody] User userObj)
+		{
+			if (userObj == null)
+			{
+				return BadRequest();
+			}
+			var user = await _context.Users.
+				FirstOrDefaultAsync(x => x.Login == userObj.Login);
+			if (user != null)
+			{
+				return NotFound(new
+				{
+					Message = "Игрок с таким логином уже есть!",
+					check = true
+				}) ;
+			}
+			return Ok(new {check = false});
+		}
+
 		[HttpPost("authentificate")]
 		public async Task<IActionResult> Authenticate([FromBody] User userObj)
 		{
@@ -23,14 +44,19 @@ namespace WebApiPuzzle.Controllers
 				return BadRequest();
 			}
 			var user1 = await _context.Users.
-				FirstOrDefaultAsync(x => x.Login == userObj.Login && x.Password == userObj.Password);
+				FirstOrDefaultAsync(x => x.Login == userObj.Login);
 
 			if(user1 == null)
 			{
-				return NotFound(new { Message = "User not found" });
+				return NotFound(new { Message = "Игрок не найден" });
+			}
+			if(user1.Password != userObj.Password)
+			{
+				return NotFound(new { Message = "Пароли не совпадают" });
 			}
 
-			return Ok(new { Message = "Login Success"});
+			return Ok(new { Message = "Авторизирован",
+							role = user1.Role});
 
 		}
 
@@ -41,12 +67,21 @@ namespace WebApiPuzzle.Controllers
 			{
 				return BadRequest();
 			}
+			var user = await _context.Users.
+				FirstOrDefaultAsync(x => x.Login == userObj.Login);
 
+			if(user != null)
+			{
+				return NotFound(new
+				{
+					Message = "Игрок с таким логином уже есть"
+				});
+			}
 			await _context.Users.AddAsync(userObj);
 			await _context.SaveChangesAsync();
 			return Ok(new
 			{
-				Message = "User register"
+				Message = "Игрок зарегистрирован"
 			});
 		}
 	}
