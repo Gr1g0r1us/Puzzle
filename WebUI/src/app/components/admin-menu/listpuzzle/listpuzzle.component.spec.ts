@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table';
+
 import { ListpuzzleComponent } from './listpuzzle.component';
 
 describe('ListpuzzleComponent', () => {

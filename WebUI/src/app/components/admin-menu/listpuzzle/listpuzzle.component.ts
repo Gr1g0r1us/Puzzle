@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listpuzzle.component.css']
 })
 export class ListpuzzleComponent implements OnInit {
+displayedColumns: any;
 
   constructor() { }
 

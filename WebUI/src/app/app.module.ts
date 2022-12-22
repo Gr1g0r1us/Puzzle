@@ -5,6 +5,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import{HttpClientModule} from '@angular/common/http';
 import{FormsModule,ReactiveFormsModule} from '@angular/forms'
+import {MatRadioModule} from '@angular/material/radio';
+import {MatTableModule} from '@angular/material/table';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -42,9 +46,14 @@ import { DifficultyComponent } from './components/admin-menu/difficulty/difficul
     MatInputModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatTableModule,
+    MatSliderModule,
+    MatFormFieldModule
   ],
-  providers: [SharedService],
+  providers: [SharedService,
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

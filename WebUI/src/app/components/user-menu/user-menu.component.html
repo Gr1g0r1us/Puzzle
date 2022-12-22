@@ -6,11 +6,11 @@
     <div class="mainBlock">
         <h1>Добро пожаловать, !</h1>
         <div class="button-form">
-            <button mat-raised-button color="primary" type="submit" >Новая игра</button>
-            <br>
-            <button mat-raised-button color="primary" type="submit" >Загрузить игру</button>
-            <br>
-            <button mat-raised-button color="primary" type="submit" >Выйти</button>
+            <button mat-raised-button color="primary" type="submit" (click)="onNewGame()">Новая игра</button>
+            <p></p>
+            <button mat-raised-button color="primary" type="submit" (click)="onLoadGame()">Загрузить игру</button>
+            <p></p>
+            <button mat-raised-button color="primary" type="submit" (click)="onExit()">Выйти</button>
         </div>
     </div>
 </div>
