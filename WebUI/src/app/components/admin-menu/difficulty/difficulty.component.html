@@ -1,33 +1,26 @@
-<p>difficulty works!</p>
+<button mat-raised-button color="primary" type="submit" routerLink="/admin-menu">Назад</button>
 <div class="mainBlock">
     <h2>Настройка сложности</h2>
-    <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">1</mat-radio-button>
-        <mat-radio-button value="2">2</mat-radio-button>
-        <mat-radio-button value="3">3</mat-radio-button>
-    </mat-radio-group>
-
-    <section class="example-section">
-        <mat-form-field class="example-margin example-width" appearance="fill">
-            <mat-label>Min value</mat-label>
-            <input matInput type="number" >
-        </mat-form-field>
+    <form [formGroup]="difficultyForm">
+        <span style="margin-right: 10px;">Сложность</span>
+        <mat-radio-group aria-label="Select an option" formControlName="IdLevel">
+            <mat-radio-button value="1">1</mat-radio-button>
+            <mat-radio-button value="2">2</mat-radio-button>
+            <mat-radio-button value="3">3</mat-radio-button>
+        </mat-radio-group>
         <p></p>
-        <mat-form-field class="example-margin example-width" appearance="fill">
-            <mat-label>Max value</mat-label>
-            <input matInput type="number" >
-        </mat-form-field>
-    </section>
-
-    <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">1</mat-radio-button>
-        <mat-radio-button value="2">2</mat-radio-button>
-    </mat-radio-group>
-
-    <p></p>
-
-    <mat-radio-group aria-label="Select an option">
-        <mat-radio-button value="1">на поле</mat-radio-button>
-        <mat-radio-button value="2">на ленте</mat-radio-button>
-    </mat-radio-group>
+        <section class="example-section">
+            <mat-form-field class="example-margin example-width" appearance="fill">
+                <mat-label>Высота</mat-label>
+                <input matInput type="number" formControlName="height">
+            </mat-form-field>
+            <p></p>
+            <mat-form-field class="example-margin example-width" appearance="fill">
+                <mat-label>Ширина</mat-label>
+                <input matInput type="number" formControlName="weight">
+            </mat-form-field>
+        </section>
+        <p></p>
+        <button mat-raised-button color="primary" type="submit" >Сохранить</button>
+    </form>
 </div>

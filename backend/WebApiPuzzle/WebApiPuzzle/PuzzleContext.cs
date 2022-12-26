@@ -59,10 +59,10 @@ public partial class PuzzleContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("id_level");
             entity.Property(e => e.Height).HasColumnName("height");
-            entity.Property(e => e.LocationFragment).HasColumnName("location_fragment");
-            entity.Property(e => e.TypePuzle)
+            //entity.Property(e => e.LocationFragment).HasColumnName("location_fragment");
+            /*entity.Property(e => e.TypePuzle)
                 .HasColumnType("character varying")
-                .HasColumnName("type_puzle");
+                .HasColumnName("type_puzle");*/
             entity.Property(e => e.Weight).HasColumnName("weight");
         });
 
@@ -93,7 +93,7 @@ public partial class PuzzleContext : DbContext
             entity.Property(e => e.Login)
                 .HasColumnType("character varying")
                 .HasColumnName("login");
-            entity.Property(e => e.IdGame).HasColumnName("id_game");
+            //entity.Property(e => e.IdGame).HasColumnName("id_game");
             entity.Property(e => e.Password)
                 .HasColumnType("character varying")
                 .HasColumnName("password");

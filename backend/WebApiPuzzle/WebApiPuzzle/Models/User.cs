@@ -11,5 +11,5 @@ public partial class User
 
     public bool? Role { get; set; }
 
-    public int? IdGame { get; set; }
+    //public int? IdGame { get; set; }
 }

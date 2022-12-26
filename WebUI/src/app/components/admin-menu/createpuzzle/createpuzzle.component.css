@@ -1,0 +1,82 @@
+.mainBlock{
+    position:absolute;
+    top: 10%;
+    left: 40%;
+    background-color: white;
+}
+.mainBlock h1{
+    text-align: center;
+}
+.mainBlock .input-form{
+    margin: 15px 40px;
+    text-align: center;
+}
+
+.mainBlock .button-form{
+    margin: 15px 40px;
+    text-align: center;
+}
+.about{
+    margin: 15px 40px;
+    left: 10px;;
+    right: 20px;
+}
+
+.about .btn-info{
+    position: absolute;
+    right: 0;
+}
+
+.mat-radio-button{
+    margin: 5px;
+}
+
+.item{
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+}
+
+.item-img{
+    display: block;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    border: 2px solid black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+.wrapper{
+    padding: 10px;
+    display: grid;
+    grid-auto-columns: 120px;
+    grid-template-rows: repeat(2, 150px);
+    grid-column-gap: 40px;
+    grid-row-gap: 5px;
+    border: 2px solid black;
+    width: 300px;
+    height: 300px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+    }
+    .wrapper .item:nth-child(2n) {
+        grid-row: 2;
+    }
+    .item-img:nth-child(2n) {
+        grid-row: 2;
+    }
+
+    .highlight{
+        -moz-box-shadow:0 0 10px blue;
+        -webkit-box-shadow:0 0 10px blue;
+        box-shadow:0 0 10px blue;
+      }
+
+      .btn{
+      margin-top: 20px;
+      
+      }

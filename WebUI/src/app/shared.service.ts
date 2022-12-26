@@ -24,4 +24,42 @@ export class SharedService {
   checkLogin(userObj:any){
     return this.http.post<any>(`${this.APIUrl}checkLogin`,userObj);
   }
+
+  createPuzzle(puzzleObj:any){
+    return this.http.post<any>(`${this.APIUrl}createPuzzle`,puzzleObj)
+  }
+
+  deletePuzzle(puzzleObj:any){
+    return this.http.post<any>(`${this.APIUrl}deletePuzzle`, puzzleObj)
+  }
+
+  getPuzzles(){
+    return this.http.post<any>(`${this.APIUrl}getPuzzles`, null)
+  }
+
+  getLevels(){
+    return this.http.post<any>(`${this.APIUrl}getLevels`, null)
+  }
+
+  setLevel(levelObj: any){
+    return this.http.post<any>(`${this.APIUrl}setLevel`, levelObj)
+  }
+
+  saveArt(img:string){
+    console.log(img);
+    return this.http.post<any>(`${this.APIUrl}saveart`, img);
+  }
+  // ,{
+  //   headers: {
+  //       'Content-Type': 'binary/octet-stream',
+  //   },
+  //   }
+
+  deleteArt(img:any){
+    return this.http.post<any>(`${this.APIUrl}deleteart`, img)
+  }
+
+  getArts(){
+    return this.http.post<any>(`${this.APIUrl}getarts`, null)
+  }
 }
