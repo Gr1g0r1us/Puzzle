@@ -1,1 +1,30 @@
-<p>createpuzzle works!</p>
+<button mat-raised-button color="primary" type="submit" routerLink="/admin-menu">Назад</button>
+<div class="mainBlock">
+    <form [formGroup]="puzzleForm">
+        
+        <h2>Создать пазл</h2>
+
+        <div class="container">
+            <div class="wrapper">
+                <div *ngFor="let item of arts" class="item" >
+                    <img src="{{'data:image/jpg;base64,' + item.base64}}" alt="" class="item-img" 
+                    (click)="getArt(item, $event)">
+                </div>
+            </div>
+            <p></p>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Название пазла</mat-label>
+                <input matInput formControlName="PuzzleName">
+            </mat-form-field>
+        </div>
+        <p></p>
+        <mat-radio-group aria-label="Select an option" formControlName="IdLevel">
+            <span style="margin-right: 10px;">Сложность</span>
+            <mat-radio-button value="1">1</mat-radio-button>
+            <mat-radio-button value="2">2</mat-radio-button>
+            <mat-radio-button value="3">3</mat-radio-button>
+        </mat-radio-group>
+        <p></p>
+        <button mat-raised-button color="primary" type="submit" (click)="savePuzzle(puzzleForm)">Сохранить</button>
+    </form>
+</div>

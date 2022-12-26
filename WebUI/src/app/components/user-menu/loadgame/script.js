@@ -1,19 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-  selector: 'app-loadgame',
-  templateUrl: './loadgame.component.html',
-  styleUrls: ['./loadgame.component.css']
-})
-export class LoadgameComponent implements OnInit {
-  //declare var $:any;
-  constructor() { }
-
-  ngOnInit(): void {
-   // $.getScript("../assets/scripts/script.js")
-  }
-
-  const shuffle = ([...arr]) => {
+console.log(123);
+const shuffle = ([...arr]) => {
     let m = arr.length;
     while (m) {
       const i = Math.floor(Math.random() * m--);
@@ -24,7 +10,16 @@ export class LoadgameComponent implements OnInit {
   
   const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
   
-  
+  class Puzzle {
+    constructor(el, width = 16, height = 24, row = 3, col = 3, gap = 1) {
+      this.el = el;
+      this.fragments = el.children;
+      this.width = width;
+      this.height = height;
+      this.row = row;
+      this.col = col;
+      this.gap = gap;
+    }
   
     // 创建拼图
     create() {
@@ -66,70 +61,7 @@ export class LoadgameComponent implements OnInit {
     }
   }
   
-  
-  const puzzle = new Puzzle(document.querySelector(".puzzle"));
-  
-  const start = () => {
-    puzzle.create();
-    puzzle.shuffle();
-    const fragments = puzzle.fragments;
-    const sortables = Array.from(fragments).map((item) => new Sortable(item, fragments));
-  };
-  
-  const gui = new dat.GUI();
-  gui
-    .add(puzzle, "width", 1, 50)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "height", 1, 50)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "row", 1, 10)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "col", 1, 10)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "gap", 0, 100)
-    .step(1)
-    .onChange((newValue) => start());
-  
-  start();
-  
-}
-class Puzzle {
-  create() {
-    throw new Error('Method not implemented.');
-  }
-  shuffle() {
-    throw new Error('Method not implemented.');
-  }
-  fragments: any;
-  el: any;
-  width: number;
-  height: number;
-  row: number;
-  col: number;
-  gap: number;
-  constructor(el, width = 16, height = 24, row = 3, col = 3, gap = 1) {
-    this.el = el;
-    this.fragments = el.children;
-    this.width = width;
-    this.height = height;
-    this.row = row;
-    this.col = col;
-    this.gap = gap;
-  }
-  
   class Sortable {
-    el: any;
-    total: any;
-    riseAnime: any;
-    draggie: any;
     constructor(el, total) {
       let that = this;
       this.el = el;
@@ -183,3 +115,37 @@ class Puzzle {
       });
     }
   }
+  
+  const puzzle = new Puzzle(document.querySelector(".puzzle"));
+  
+  const start = () => {
+    puzzle.create();
+    puzzle.shuffle();
+    const fragments = puzzle.fragments;
+    const sortables = Array.from(fragments).map((item) => new Sortable(item, fragments));
+  };
+  
+  const gui = new dat.GUI();
+  gui
+    .add(puzzle, "width", 1, 50)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "height", 1, 50)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "row", 1, 10)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "col", 1, 10)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "gap", 0, 100)
+    .step(1)
+    .onChange((newValue) => start());
+  
+  start();
+  

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-createpuzzle',
@@ -6,34 +10,61 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./createpuzzle.component.css']
 })
 export class CreatepuzzleComponent implements OnInit {
-  game: GAME[] =[];
+  puzzleForm!: FormGroup;
+  picList:Observable<any>[] = [];
+  arts:any;
+  selectedItem:any;
+  selectedImgId:any;
+  IdPuzzle = 1;
+  
 
-  constructor() { 
-    if(typeof(Storage)!== "undefined"){
-      const games = localStorage.getItem('puzzle');
-      this.game = games ? JSON.parse(games) :[];
-    }
+  constructor(private fb: FormBuilder, private auth: SharedService, private router: Router) { 
+    this.puzzleForm = this.fb.group({
+      IdLevel:['',Validators.required],
+      IdArt:['',Validators.required],
+      IdPuzzle:['',Validators.required],
+      PuzzleName:['',Validators.required]
+    })
   }
-
-  getGames(){
-    return this.game;
-  }
-
-  // save(game: { id: any; levelId?: number; folder?: string; image?: string; time?: string; moves?: number; }){
-  //   const count = this.games.length;
-  //   game.id = count ? this.games[count-1].id + 1 : 0;
-  //   this.games.push(game);
-  //   localStorage.puzzle = JSON.stringify(this.games);
-  // }
-
-  // delete(id){
-  //   this.games = this.games.filter((game) => game.id !== id);
-  //   localStorage.puzzle = JSON.stringify(this.games);
-  // }
 
   ngOnInit(): void {
+    this.getAllArts();
+  }
+
+  savePuzzle(puzzleForm:any){
+    const puzzle  = {
+      IdPuzzle: this.IdPuzzle+1,
+      NamePuzzle: puzzleForm.controls.PuzzleName.value,
+      IdArt: this.selectedImgId,
+      IdLevel: puzzleForm.controls.IdLevel.value
+      }
+    console.log(puzzle)
+    console.log(puzzleForm)
+    this.auth.createPuzzle(puzzle).subscribe();
+  }
+
+  getAllArts(){
+    this.auth.getArts().subscribe(x=> this.arts = x);
+
+  }
+
+  getArt(element:any, event:any){
+    console.log(element)
+    this.selectedImgId= element.IdArt;
+    const hasclass = event.target.classList.contains("highlight");
+    
+    if(hasclass){
+      event.target.classList.remove("highlight");
+    }
+    else{
+      event.target.className+= " highlight";
+    }
+
+    if(this.selectedItem && event.target != this.selectedItem){
+      this.selectedItem.className= " item-img";
+    }
+
+    this.selectedItem = event.target;
   }
 
 }
-
-export type GAME = {id: number, levelId: number, folder: string, image: string, time: string, moves: number};
