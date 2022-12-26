@@ -115,37 +115,20 @@ const shuffle = ([...arr]) => {
       });
     }
   }
+
+  var puzzle =""
+  setTimeout(() => {
+    puzzle = new Puzzle(document.querySelector(".puzzle"));
+    const start = () => {
+      puzzle.create();
+      puzzle.shuffle();
+      const fragments = puzzle.fragments;
+      const sortables = Array.from(fragments).map((item) => new Sortable(item, fragments));
+    }; 
+    start();   
+  }, 1000)
   
-  const puzzle = new Puzzle(document.querySelector(".puzzle"));
   
-  const start = () => {
-    puzzle.create();
-    puzzle.shuffle();
-    const fragments = puzzle.fragments;
-    const sortables = Array.from(fragments).map((item) => new Sortable(item, fragments));
-  };
+
   
   const gui = new dat.GUI();
-  gui
-    .add(puzzle, "width", 1, 50)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "height", 1, 50)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "row", 1, 10)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "col", 1, 10)
-    .step(1)
-    .onChange((newValue) => start());
-  gui
-    .add(puzzle, "gap", 0, 100)
-    .step(1)
-    .onChange((newValue) => start());
-  
-  start();
-  
