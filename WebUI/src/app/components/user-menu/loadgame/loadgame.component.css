@@ -15,14 +15,14 @@
     --puzzle-gap: 1px;
     --puzzle-frag-width: calc(var(--puzzle-width) / var(--puzzle-col));
     --puzzle-frag-height: calc(var(--puzzle-height) / var(--puzzle-row));
-    --puzzle-img: url(https://fantasticbook.ru/pict/1021811439.jpg);
+    --puzzle-img: url(https://i.picsum.photos/id/293/300/600.jpg?hmac=wAkrJNl_2A_s-EGqCrQv-YK5-yEjaoiTDxggC7HOboE);
   
     display: flex;
     flex-wrap: wrap;
     width: calc(var(--puzzle-width) + calc(var(--puzzle-col) * var(--puzzle-gap) * 2));
     height: calc(var(--puzzle-height) + calc(var(--puzzle-row) * var(--puzzle-gap) * 2));
   }
-    .fragment {
+   .fragment {
       --x-offset: calc(var(--x) * var(--puzzle-frag-width) * -1);
       --y-offset: calc(var(--y) * var(--puzzle-frag-height) * -1);
       width: var(--puzzle-frag-width);
@@ -32,5 +32,3 @@
       background: var(--puzzle-img) var(--x-offset) var(--y-offset) / var(--puzzle-width) var(--puzzle-height) no-repeat;
       border-radius: 10px;
     }
-  
-  
