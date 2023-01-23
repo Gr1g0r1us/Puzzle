@@ -1,4 +1,4 @@
-console.log(123);
+
 const shuffle = ([...arr]) => {
     let m = arr.length;
     while (m) {

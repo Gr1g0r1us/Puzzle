@@ -1,4 +1,38 @@
-console.log(123);
+var width = 16;
+var height = 16;
+var row = 3;
+var col = 3;
+var gap = 1;
+var picUrl = "url(https://cq.ru/storage/uploads/posts/1020636/4bada763f83c45653c9ffb4c8fa22091.jpg)";
+
+
+function setParameters(w, h, r, c, g, p){
+  width = w;
+  height = h;
+  row = r;
+  col = c;
+  gap = g;
+  picUrl = p;
+}
+
+function setWidthHeight(w,h){
+  width = w;
+  height = h;
+}
+
+function setRowColumns(r,c){
+  row = r;
+  col = c;
+}
+
+function setGap(g){
+  gap = g;
+}
+
+function setPicture(pic){
+  picUrl = pic;
+}
+
 const shuffle = ([...arr]) => {
     let m = arr.length;
     while (m) {
@@ -11,7 +45,7 @@ const shuffle = ([...arr]) => {
   const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
   
   class Puzzle {
-    constructor(el, width = 16, height = 24, row = 3, col = 3, gap = 1) {
+    constructor(el) {
       this.el = el;
       this.fragments = el.children;
       this.width = width;
@@ -21,7 +55,7 @@ const shuffle = ([...arr]) => {
       this.gap = gap;
     }
   
-    // 创建拼图
+    // create table of fragments
     create() {
       this.ids = [...Array(this.row * this.col).keys()];
       const puzzle = this.el;
@@ -34,10 +68,21 @@ const shuffle = ([...arr]) => {
       puzzle.style.setProperty("--puzzle-row", this.row);
       puzzle.style.setProperty("--puzzle-col", this.col);
       puzzle.style.setProperty("--puzzle-gap", this.gap + "px");
+      puzzle.style.setProperty("--puzzle-img",picUrl);
       for (let i = 0; i < this.row; i++) {
         for (let j = 0; j < this.col; j++) {
           const fragment = document.createElement("div");
           fragment.className = "fragment";
+          //add styles to fragment
+          fragment.style.setProperty("--x-offset","calc(var(--x) * var(--puzzle-frag-width) * -1)");
+          fragment.style.setProperty("--y-offset","calc(var(--y) * var(--puzzle-frag-height) * -1)")
+          fragment.style.background ="var(--puzzle-img) var(--x-offset) var(--y-offset) / var(--puzzle-width) var(--puzzle-height) no-repeat"
+          fragment.style.width = "var(--puzzle-frag-width)";
+          fragment.style.height = "var(--puzzle-frag-height)";
+          fragment.style.order = "var(--order)";
+          fragment.style.margin = "var(--puzzle-gap)";
+          //fragment.style.borderRadius = "10px";
+          //set propeties
           fragment.style.setProperty("--x", j);
           fragment.style.setProperty("--y", i);
           fragment.style.setProperty("--i", j + i * this.col);
@@ -46,7 +91,7 @@ const shuffle = ([...arr]) => {
       }
     }
   
-    // 碎片重新排序
+    // give new id to element
     reorder(newIds) {
       const fragments = this.fragments;
       for (let id = 0; id < this.ids.length; id++) {
@@ -54,7 +99,7 @@ const shuffle = ([...arr]) => {
       }
     }
   
-    // 打乱拼图
+    // shuffle elements
     shuffle() {
       const shuffledIds = shuffle(this.ids);
       this.reorder(shuffledIds);
@@ -108,7 +153,8 @@ const shuffle = ([...arr]) => {
           const ids = Array.from(that.total).map((item) => item.style.getPropertyValue("--i"));
           if (orders.toString() === ids.toString()) {
             sleep(300).then(() => {
-              alert("Congratulations! You win!");
+              winnerAnimation();
+              document.getElementById('ok-btn').style.display = "block";
             });
           }
         },
@@ -116,7 +162,8 @@ const shuffle = ([...arr]) => {
     }
   }
 
-  var puzzle =""
+  var puzzle ="";
+  function startGame(){
   setTimeout(() => {
     puzzle = new Puzzle(document.querySelector(".puzzle"));
     const start = () => {
@@ -125,10 +172,83 @@ const shuffle = ([...arr]) => {
       const fragments = puzzle.fragments;
       const sortables = Array.from(fragments).map((item) => new Sortable(item, fragments));
     }; 
-    start();   
-  }, 1000)
+    //may be deleted later
+    /*
+    const gui = new dat.GUI();
+    console.log(gui);
+  gui.add(puzzle, "width", 1, 50)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "height", 1, 50)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "row", 1, 10)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "col", 1, 10)
+    .step(1)
+    .onChange((newValue) => start());
+  gui
+    .add(puzzle, "gap", 0, 100)
+    .step(1)
+    .onChange((newValue) => start());
+  */
+    start();    
+  }, 100)
   
-  
+}
 
+function winnerAnimation(){
+  for (var i = 0; i < 250; i++) {
+    create(i);
+  }
   
-  const gui = new dat.GUI();
+  function create(i) {
+    var width = Math.random() * 10;
+    var height = width * 0.4;
+    var colourIdx = Math.ceil(Math.random() * 3);
+    var colour = "red";
+    var bgColor = "#d13447";
+    switch(colourIdx) {
+      case 1:
+        colour = "yellow";
+        bgColor = "#ffbf00";
+        break;
+      case 2:
+        colour = "blue";
+        bgColor = "#263672";
+        break;
+      default:
+        colour = "red";
+        bgColor = "#d13447";
+    }
+    $('<div class="confetti-'+i+' '+colour+'"></div>').css({
+      "position":"absolute",
+      "background-color": bgColor,
+      "width" : width+"px",
+      "height" : height+"px",
+      "top" : -Math.random()*20+"%",
+      "left" : Math.random()*100+"%",
+      "opacity" : Math.random()+0.5,
+      "transform" : "rotate("+Math.random()*360+"deg)"
+    }).appendTo('.wrapper');  
+    
+    drop(i);
+  }
+  
+  function drop(x) {
+    $('.confetti-'+x).animate({
+      top: "100%",
+      left: "+="+Math.random()*15+"%"
+    }, Math.random()*2000 + 2000, function() {
+      deleteConfetti(x);
+    });
+  }
+  
+  function deleteConfetti(x) {
+    $('.confetti-'+x).remove();
+  }
+}
