@@ -12,12 +12,10 @@ export class LoadgameComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    https://github.com/Gr1g0r1us/Puzzle/blob/main/WebUI/src/assets/imgs/1645936030_25-kartinkin-net-p-kartinki-dlya-pazlov-27.jpg
-    startGame();
     setParameters(40,40,environment.rowCount,environment.columnCount,0,`url(${environment.pictureURL})`);
+    startGame();
   }
   
   ngOnChange(){
-    console.log();
   }
 }
