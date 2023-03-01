@@ -19,7 +19,7 @@ export class NewgameComponent implements OnInit {
   rows: any;
   columns: any; 
 
-  artURL = "../../../../src/assets/imgs/"
+  artURL = "../../../../assets/imgs/"
 
   
 
@@ -63,10 +63,7 @@ export class NewgameComponent implements OnInit {
     
     this.loadArtInfo(element)
     this.loadLevelInfo(element)
-    
     await this.wait(3000)
-    console.log(123)
     this.router.navigate(['loadgame'],{queryParams:{id:element.IdPuzzle}})
-    
   }
 }

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  rowCount: 5,
-  columnCount:5,
+  rowCount: 7,
+  columnCount:7,
   pictureURL:''
 
 };
