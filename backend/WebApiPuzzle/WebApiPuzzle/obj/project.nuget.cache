@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gsZPFpfiXhPAgn3Z2JSnT7qm0pq8ArrQxs7dvDy1xfEuHzDkwwV/8cCq/EYa1Fv5sj7H7STZ26rSx+mF6AU64w==",
+  "dgSpecHash": "bXBhJpEw9JmitM5ll06F72xu9Dsw6/EPrsGsrlss32AZbVqkw6Ok7TEIm5BJe5WB9f4+RuDIdM7pRzcQ4rN4wA==",
   "success": true,
-  "projectFilePath": "D:\\Study\\Magistr\\ZelenkoLS\\proj\\Puzzle\\backend\\WebAPIPuzzle\\WebApiPuzzle\\WebApiPuzzle.csproj",
+  "projectFilePath": "D:\\Study\\Magistr\\ZelenkoLS\\project\\Puzzle\\backend\\WebApiPuzzle\\WebApiPuzzle\\WebApiPuzzle.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lisya\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\lisya\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.11\\microsoft.aspnetcore.authentication.jwtbearer.6.0.11.nupkg.sha512",

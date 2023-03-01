@@ -6,6 +6,6 @@ namespace WebApiPuzzle.Models
 	public class Image
 	{
 		public string IdArt { get; set; }
-		public string Base64 { get; set; }
+		//public string Base64 { get; set; }
 	}
 }

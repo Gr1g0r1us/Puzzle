@@ -45,15 +45,9 @@ export class SharedService {
     return this.http.post<any>(`${this.APIUrl}setLevel`, levelObj)
   }
 
-  saveArt(img:string){
-    console.log(img);
+  saveArt(img:any){
     return this.http.post<any>(`${this.APIUrl}saveart`, img);
   }
-  // ,{
-  //   headers: {
-  //       'Content-Type': 'binary/octet-stream',
-  //   },
-  //   }
 
   deleteArt(img:any){
     return this.http.post<any>(`${this.APIUrl}deleteart`, img)
@@ -61,5 +55,13 @@ export class SharedService {
 
   getArts(){
     return this.http.post<any>(`${this.APIUrl}getarts`, null)
+  }
+
+  getPuzzleLevel(element:any){
+    return this.http.post<any>(`${this.APIUrl}getpuzzleLevel`,element)
+  }
+
+  getPuzzleArt(element:any){
+    return this.http.post<any>(`${this.APIUrl}getpuzzleArt`, element)
   }
 }

@@ -13,9 +13,7 @@ import { SharedService } from 'src/app/shared.service';
 export class DifficultyComponent implements OnInit {
   difficultyForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: SharedService, private router: Router) { }
-
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private auth: SharedService, private router: Router) { 
     this.difficultyForm = this.fb.group({
       IdLevel:['',Validators.required],
       height:['', Validators.required],
@@ -23,8 +21,20 @@ export class DifficultyComponent implements OnInit {
     })
   }
 
-  onSave(){
+  ngOnInit(): void {
     
+  }
+
+  onSave(difficultyForm:any){
+    const level  = {
+      Height: difficultyForm.controls.height.value,
+      Weight: difficultyForm.controls.weight.value,
+      IdLevel: difficultyForm.controls.IdLevel.value
+      }
+      
+    console.log(level)
+    console.log(this.difficultyForm)
+    this.auth.setLevel(level).subscribe();
   }
 
 }

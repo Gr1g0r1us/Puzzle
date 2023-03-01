@@ -1,0 +1,19 @@
+.demo-table {
+    width: 100%;
+  }
+  
+  .mat-header-row, .mat-row{
+    justify-content: space-between;
+  }
+  .demo-button-container {
+    padding-bottom: 16px;
+  }
+  
+  .demo-button + .demo-button {
+    margin-left: 8px;
+    background-color: green;
+  }
+  .warning{
+    background-color: green;
+    color: white;
+  }

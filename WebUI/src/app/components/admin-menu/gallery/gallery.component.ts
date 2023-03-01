@@ -20,6 +20,7 @@ export class GalleryComponent implements OnInit {
   displayedColumns: string[] = ['IdArt', 'base64', 'Do'];
   private selectedFile: File | undefined;
   fileName = '';
+
   
   // onFileSelect(event:any) {
   //   this.selectedFile = event.target.files[0];
@@ -28,20 +29,7 @@ export class GalleryComponent implements OnInit {
   //   this.saveArt(this.selectedFile);
   // }
 
-  onFileSelected(event:any) {
-
-    const file:File = event.target.files[0];
-
-    if (file) {
-        this.fileName = file.name;
-
-        const formData = new FormData();
-
-        formData.append("123",file);
-        
-        this.saveArt(this.fileName);
-    }
-  }
+  
 
 
   constructor(private fb: FormBuilder, private auth: SharedService, private router: Router,private http: HttpClient) { }
@@ -52,19 +40,53 @@ export class GalleryComponent implements OnInit {
     })
   }
 
+  onFileSelected(fileInput: any) {
+    this.selectedFile = <File>fileInput.target.files[0];
+    // const file:File = event.target.files[0];
+    this.fileName = this.selectedFile.name;
+    console.log(this.fileName);
+    // const file:File = event.target.files[0];
+    // const Art  = {
+    //   IdArt: this.fileName
+    //   //base64: "f"
+    //   }
+    // 
+    // if (file) {
+    //     
+
+    //     const formData = new FormData();
+
+    //     formData.append("123",file);
+    //     const Art  = {
+    //       IdArt: this.fileName
+    //       //base64: "f"
+    //       }
+        
+    //     this.deleteArt(Art);
+    // }
+  }
+
+  sendFile(){
+    const Art  = {
+            IdArt: this.fileName
+            //base64: "f"
+            }
+    this.saveArt1(Art);
+  }
+
   hiddenfileinput(){
     
   }
 
   deleteArt(element:any){
+    console.log(element);
     this.auth.deleteArt(element).subscribe();
     this.ngOnInit();
   }
 
-  saveArt(img:string){
+  saveArt1(img:any){
     console.log(img);
-    this.auth.saveArt(img).subscribe();
-    //this.ngOnInit();
+    this.auth.saveArt(img).subscribe(null,error=> console.log(error));
   }
 }
 

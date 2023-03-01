@@ -1,41 +1,37 @@
 <button mat-raised-button color="primary" type="submit" routerLink="/admin-menu">Назад</button>
-<div class="demo-button-container">
-    <button mat-raised-button  class="demo-button" >
-      Add data
-    </button>
-  </div>
-  <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+  <input type="file" class="file-input" (change)="onFileSelected($event)">
   <div class="file-upload">
     {{fileName || "No file uploaded yet."}}
      <button mat-mini-fab color="primary" class="upload-btn"
-       (click)="fileUpload.click()">
+       (click)="sendFile()">
      </button>
-  </div><!-- https://material.angular.io/components/table/examples -->
-  <table mat-table [dataSource]="imgs"  class="mat-elevation-z8 demo-table">
+  </div>
+  <mat-table [dataSource]="imgs"  class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="IdArt">
-      <th mat-header-cell *matHeaderCellDef>IdArt</th>
-      <td mat-cell *matCellDef="let element">{{element.IdArt}}</td>
+      <mat-header-cell  *matHeaderCellDef>IdArt</mat-header-cell>
+      <mat-cell  *matCellDef="let element">{{element.IdArt}}</mat-cell>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="base64">
-      <th mat-header-cell *matHeaderCellDef>Figure</th>
-      <td mat-cell *matCellDef="let element"><img class="pic" src="{{'data:image/jpg;base64,' + element.base64}}" /></td>
+      <mat-header-cell *matHeaderCellDef>Figure</mat-header-cell>
+      <mat-cell *matCellDef="let element"><img class="pic" src="{{'data:image/jpg;base64,' + element.base64}}" /></mat-cell>
     </ng-container>
   
     <ng-container matColumnDef="Do">
-      <th mat-header-cell *matHeaderCellDef>Do</th>
-      <td mat-cell *matCellDef="let element">
-        <button
-        mat-raised-button
-        class="warning"
-        (click)="deleteArt(element)">
-        Remove data
-      </button>
-    </td>
+      <mat-header-cell *matHeaderCellDef>Do</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          <button
+          mat-raised-button
+          class="warning"
+          (click)="deleteArt(element)">
+          Remove data
+        </button>
+      </mat-cell>
     </ng-container>
+
   
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </table>
+  </mat-table>

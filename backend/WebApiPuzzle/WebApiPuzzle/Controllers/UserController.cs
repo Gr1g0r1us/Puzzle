@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection.Emit;
 using System.Runtime.Intrinsics.X86;
 using WebApiPuzzle.Models;
@@ -36,46 +39,46 @@ namespace WebApiPuzzle.Controllers
 				{
 					Message = "Игрок с таким логином уже есть!",
 					check = true
-				}) ;
+				});
 			}
-			return Ok(new {check = false});
+			return Ok(new { check = false });
 		}
 
 		[HttpPost("authentificate")]
 		public async Task<IActionResult> Authenticate([FromBody] User userObj)
 		{
-			if(userObj == null)
+			if (userObj == null)
 			{
 				return BadRequest();
 			}
 			var user1 = await _context.Users.
 				FirstOrDefaultAsync(x => x.Login == userObj.Login);
 
-			if(user1 == null)
+			if (user1 == null)
 			{
 				return NotFound(new { Message = "Игрок не найден" });
 			}
-			if(user1.Password != userObj.Password)
+			if (user1.Password != userObj.Password)
 			{
 				return NotFound(new { Message = "Пароли не совпадают" });
 			}
 
 			return Ok(new { Message = "Авторизирован",
-							role = user1.Role});
+				role = user1.Role });
 
 		}
 
 		[HttpPost("register")]
 		public async Task<IActionResult> RegisterUser([FromBody] User userObj)
 		{
-			if(userObj == null)
+			if (userObj == null)
 			{
 				return BadRequest();
 			}
 			var user = await _context.Users.
 				FirstOrDefaultAsync(x => x.Login == userObj.Login);
 
-			if(user != null)
+			if (user != null)
 			{
 				return NotFound(new
 				{
@@ -156,7 +159,7 @@ namespace WebApiPuzzle.Controllers
 		[HttpPost("getLevels")]
 		public async Task<IActionResult> GetLevels()
 		{
-			var levels	= _context.Levels.ToList();
+			var levels = _context.Levels.ToList();
 
 			return Ok(levels);
 		}
@@ -164,7 +167,7 @@ namespace WebApiPuzzle.Controllers
 		[HttpPost("setLevel")]
 		public async Task<IActionResult> SetLevel([FromBody] Level level)
 		{
-			
+
 			if (level == null)
 			{
 				return BadRequest();
@@ -192,36 +195,116 @@ namespace WebApiPuzzle.Controllers
 			});
 		}
 
+		[HttpPost("getpuzzleLevel")]
+		public async Task<IActionResult> GetPuzzleLevel([FromBody] Puzzle puzzle)
+		{
+
+
+			if (puzzle == null)
+			{
+				return BadRequest();
+			}
+
+			var puzzles = await _context.Puzzles.
+				FirstOrDefaultAsync(x => x.IdPuzzle == puzzle.IdPuzzle);
+
+			if (puzzles == null)
+			{
+				return NotFound(new
+				{
+					Message = "Пазл не найден"
+				});
+			}
+
+			var level = _context.Levels.FirstOrDefaultAsync(x => puzzle.IdLevel == x.IdLevel);
+
+
+			return Ok(new
+			{
+				//level.Result.IdLevel,
+				Weight = level.Result.Weight,
+				Height = level.Result.Height
+			});
+		}
+
+		[HttpPost("getpuzzleArt")]
+		public async Task<IActionResult> GetPuzzleArt([FromBody] Puzzle puzzle)
+		{
+			if (puzzle == null)
+			{
+				return BadRequest();
+			}
+
+			var puzzles = await _context.Puzzles.
+				FirstOrDefaultAsync(x => x.IdPuzzle == puzzle.IdPuzzle);
+
+			if (puzzles == null)
+			{
+				return NotFound(new
+				{
+					Message = "Пазл не найден"
+				});
+			}
+			var art = puzzle.IdArt;
+
+			var physicalPath = _webHostEnvironment.ContentRootPath + "/Arts/";
+
+			DirectoryInfo dir = new DirectoryInfo(physicalPath);
+
+			var files = dir.GetFiles(art);	
+
+			
+
+
+			return Ok(new
+			{
+				IdArt = files.ToList().FirstOrDefault().Name,
+				base64 = Convert.ToBase64String(System.IO.File.ReadAllBytes(files.ToList().FirstOrDefault().FullName))
+			});
+		}
+
 		[HttpPost("saveart")]
-		public async Task<IActionResult> SaveArt([FromBody] string img)
+		public async Task<IActionResult> SaveArt([FromBody] Image img)
+		{
+			var downloadPath = "C:\\Users\\lisya\\Downloads\\" + img.IdArt;
+
+			var frontPath = @"D:\Study\Magistr\ZelenkoLS\project\Puzzle\WebUI\src\assets\imgs";
+			//fileName = file.ToString();
+			var physicalPath = _webHostEnvironment.ContentRootPath + "/Arts/"+ img.IdArt;
+
+			FileInfo fileInf = new FileInfo(downloadPath);
+
+			if (fileInf.Exists)
+			{
+				fileInf.CopyTo(physicalPath, true);
+				fileInf.CopyTo(frontPath, true);
+			}
+			/*using (var stream = new FileStream(physicalPath, FileMode.Create))
+			{
+				postedFile.CopyTo(stream);
+			}*/
+			return Ok(new
+			{
+				Message = "done"
+			});
+		}
+
+		[HttpPost("addart")]
+		public async Task<IActionResult> AddArt([FromBody] Image img)
 		{
 			try
 			{
-				/*var httpRequest = Request.Form;
-				var postedFile = httpRequest.Files[0];
-				string fileName = postedFile.FileName;
-				//fileName = file.ToString();
-				var physicalPath = _webHostEnvironment.ContentRootPath + "/Arts/" + fileName;
+				var physicalPath = _webHostEnvironment.ContentRootPath + "/Arts/" + img.IdArt;
 
-				using (var stream = new FileStream(physicalPath, FileMode.Create))
-				{
-					postedFile.CopyTo(stream);
-				}*/
+				System.IO.File.Delete(physicalPath);
 
-				return Ok(new
-				{
-					Message = "done"
-				});
+
+				return new JsonResult(img);
 			}
 			catch (Exception)
 			{
-				return Ok(new
-				{
-					Message = "fail"
-				});
+				return new JsonResult("fail");
 			}
-
-			
 		}
 
 		[HttpPost("deleteart")]
@@ -229,6 +312,10 @@ namespace WebApiPuzzle.Controllers
 		{
 			try
 			{
+				var puzzles = _context.Puzzles.Where(x => x.IdArt == img.IdArt);
+
+				_context.Puzzles.RemoveRange(puzzles);
+
 				var physicalPath = _webHostEnvironment.ContentRootPath + "/Arts/" + img.IdArt;
 
 				System.IO.File.Delete(physicalPath);
